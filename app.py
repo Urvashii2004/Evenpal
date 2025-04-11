@@ -1,18 +1,15 @@
 import streamlit as st
-from openai import OpenAI
-import os
-from PIL import Image
-import streamlit as st
 import openai
+from PIL import Image
 
-openai.api_key = st.secrets["openai"]["api_key"]
-
-
-# Load your logo
+# Load logo
 logo = Image.open("evenpal_logo.png")
 
-# Set Streamlit page config
+# Page config
 st.set_page_config(page_title="EvenPal - Mental Health Companion", page_icon=logo)
+
+# Set OpenAI key securely
+openai.api_key = st.secrets["openai"]["api_key"]
 
 # Custom CSS
 st.markdown("""
@@ -41,26 +38,20 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# Title and logo
+# Logo and title
 col1, col2 = st.columns([1, 5])
 with col1:
     st.image(logo, width=70)
 with col2:
     st.markdown("## EvenPal – Your AI Mental Health Buddy")
 
-# Set up OpenAI key
-from openai import OpenAI
-
-client = OpenAI(api_key="sk-...")
-
-
-# Initialize chat history
+# Initialize message history
 if "messages" not in st.session_state:
     st.session_state.messages = [
         {"role": "system", "content": "You're EvenPal, a calm and supportive mental health assistant chatbot."}
     ]
 
-# Display chat history
+# Display past messages
 for msg in st.session_state.messages[1:]:
     with st.chat_message(msg["role"]):
         st.markdown(msg["content"])
@@ -71,9 +62,9 @@ if prompt:
     st.chat_message("user").markdown(prompt)
     st.session_state.messages.append({"role": "user", "content": prompt})
 
-    # AI response
+    # Get response
     with st.spinner("EvenPal is typing..."):
-        response = client.chat.completions.create(
+        response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
             messages=st.session_state.messages,
         )
