@@ -4,7 +4,7 @@ import os
 from PIL import Image
 
 # Load your logo
-logo = Image.open("assets/evenpal_logo.png")
+logo = Image.open("evenpal_logo.png")
 
 # Set Streamlit page config
 st.set_page_config(page_title="EvenPal - Mental Health Companion", page_icon=logo)
