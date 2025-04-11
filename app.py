@@ -1,6 +1,6 @@
 import streamlit as st
 from PIL import Image
-from openai import OpenAi
+import openai
 
 # API key from secrets
 openai.api_key = st.secrets["openai"]["api_key"]
