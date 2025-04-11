@@ -1,6 +1,6 @@
 import streamlit as st
 from PIL import Image
-import openai
+from openai import OpenAi
 
 # API key from secrets
 openai.api_key = st.secrets["openai"]["api_key"]
@@ -31,7 +31,6 @@ if prompt:
     st.session_state.messages.append({"role": "user", "content": prompt})
 
     with st.spinner("EvenPal is typing..."):
-        from openai import OpenAI
 client = OpenAI(api_key=st.secrets["openai"]["api_key"])
 
 response = client.chat.completions.create(
