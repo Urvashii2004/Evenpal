@@ -31,7 +31,7 @@ if prompt:
     st.session_state.messages.append({"role": "user", "content": prompt})
 
     with st.spinner("EvenPal is typing..."):
-client = openai(api_key=st.secrets["openai"]["api_key"])
+        client = openai(api_key=st.secrets["openai"]["api_key"])
 
 response = client.chat.completions.create(
     model="gpt-3.5-turbo",
