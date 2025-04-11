@@ -3,7 +3,7 @@ from openai import OpenAI
 from PIL import Image
 
 # Load your logo
-logo = Image.open("assets/evenpal_logo.png")  # Make sure this image exists in /assets
+logo = Image.open("evenpal_logo.png")  # Make sure this image exists in /assets
 
 # Set Streamlit page config
 st.set_page_config(page_title="EvenPal - Mental Health Companion", page_icon=logo)
