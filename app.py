@@ -6,7 +6,7 @@ import openai
 openai.api_key = st.secrets["openai"]["api_key"]
 
 # Load logo
-logo = Image.open("assets/evenpal_logo.png")
+logo = Image.open("evenpal_logo.png")
 st.set_page_config(page_title="EvenPal", page_icon=logo)
 
 # Title and image
