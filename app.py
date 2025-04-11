@@ -1,6 +1,7 @@
 import streamlit as st
 from openai import OpenAI
 from PIL import Image
+import os
 
 # Load your logo
 logo = Image.open("evenpal_logo.png")  # Make sure this image exists in /assets
@@ -40,7 +41,7 @@ with col2:
     st.markdown("## EvenPal – Your AI Mental Health Buddy")
 
 # Set up OpenAI client
-client = OpenAI(api_key=st.secrets["openai"]["api_key"])
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 # Initialize chat history
 if "messages" not in st.session_state:
