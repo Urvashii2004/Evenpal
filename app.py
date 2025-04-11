@@ -1,57 +1,25 @@
 import streamlit as st
-import openai
 from PIL import Image
+import openai
 
-# Load logo
-logo = Image.open("evenpal_logo.png")
-
-# Page config
-st.set_page_config(page_title="EvenPal - Mental Health Companion", page_icon=logo)
-
-# Set OpenAI key securely
+# API key from secrets
 openai.api_key = st.secrets["openai"]["api_key"]
 
-# Custom CSS
-st.markdown("""
-    <style>
-        body {
-            background-color: #f2f8fc;
-        }
-        .stButton > button {
-            background-color: #5f9ea0;
-            color: white;
-            font-weight: bold;
-            border-radius: 10px;
-            padding: 10px;
-        }
-        .stTextInput > div > div > input {
-            background-color: #ffffff;
-            color: #000000;
-        }
-        .message {
-            background-color: #ffffff;
-            padding: 15px;
-            border-radius: 10px;
-            margin: 10px 0;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-    </style>
-""", unsafe_allow_html=True)
+# Load logo
+logo = Image.open("assets/evenpal_logo.png")
+st.set_page_config(page_title="EvenPal", page_icon=logo)
 
-# Logo and title
-col1, col2 = st.columns([1, 5])
-with col1:
-    st.image(logo, width=70)
-with col2:
-    st.markdown("## EvenPal – Your AI Mental Health Buddy")
+# Title and image
+st.image(logo, width=70)
+st.markdown("## EvenPal – Your AI Mental Health Buddy")
 
-# Initialize message history
+# Chat history setup
 if "messages" not in st.session_state:
     st.session_state.messages = [
         {"role": "system", "content": "You're EvenPal, a calm and supportive mental health assistant chatbot."}
     ]
 
-# Display past messages
+# Display previous messages
 for msg in st.session_state.messages[1:]:
     with st.chat_message(msg["role"]):
         st.markdown(msg["content"])
@@ -62,7 +30,6 @@ if prompt:
     st.chat_message("user").markdown(prompt)
     st.session_state.messages.append({"role": "user", "content": prompt})
 
-    # Get response
     with st.spinner("EvenPal is typing..."):
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
